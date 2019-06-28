@@ -1,0 +1,14 @@
+<form #formUserList="ngForm">
+    <accordion [(ngModel)]="users" name="accordion" ngDefaultControl>
+        <accordion-group *ngFor="let usr of users" heading={{usr.username}}>
+            <div class="btn-group">
+                <label class="btn btn-primary" ngDefaultControl btnCheckbox tabindex="0">
+                    {{usr.Name}}</label>
+                <label class="btn btn-primary" ngDefaultControl btnCheckbox tabindex="0">{{usr.LastName}}</label>
+                <label class="btn btn-primary" ngDefaultControl btnCheckbox tabindex="0">{{usr.email}}</label>
+            </div>
+
+        </accordion-group>
+
+    </accordion>
+</form>

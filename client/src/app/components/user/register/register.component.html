@@ -1,0 +1,99 @@
+<div>
+    <tabset>
+        <tab heading="ID Information" id="tab1">
+            <app-selector-document></app-selector-document>
+        </tab>
+        <tab heading="Location Info">
+            <app-selector></app-selector>
+        </tab>
+
+
+        <tab heading="Personal Info">
+            <form #formRegister="ngForm" (ngSubmit)="onRegister(formRegister)">
+                <section id="register" class="mb-5 mt-5">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
+
+
+                                <div class="card_register">
+                                    <div class="card">
+
+                                        <div class="card-body text-center">
+
+
+                                            <div class="alert alert-danger" role="alert" *ngIf="isError">
+                                                {{msgError}}
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" #name="ngModel" name="name" class="form-control"
+                                                    placeholder="Name" [(ngModel)]="user.Name" required maxlength="15">
+                                            </div>
+
+                                            <div class="alert alert-danger" role="alert"
+                                                *ngIf="name.touched && !name.valid">
+                                                <div *ngIf="name.errors.required">Name is required</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="text" #lastName="ngModel" name="lastName"
+                                                    class="form-control" placeholder="Last Name"
+                                                    [(ngModel)]="user.LastName" required maxlength="15">
+                                            </div>
+
+                                            <div class="alert alert-danger" role="alert"
+                                                *ngIf="lastName.touched && !lastName.valid">
+                                                <div *ngIf="lastName.errors.required">Last Name is required</div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <input type="text" #username="ngModel" name="username"
+                                                    class="form-control" placeholder="Username"
+                                                    [(ngModel)]="user.username" email="true" required>
+                                            </div>
+
+                                            <div class="alert alert-danger" role="alert"
+                                                *ngIf="username.touched && !username.valid">
+                                                <div *ngIf="username.errors.required">User Name is required</div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="email" #email="ngModel" name="email" class="form-control"
+                                                    placeholder="Email" [(ngModel)]="user.email" email="true" required
+                                                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                            </div>
+
+                                            <div class="alert alert-danger" role="alert"
+                                                *ngIf="email.touched && !email.valid">
+                                                <div *ngIf="email.errors.required">Email is required</div>
+                                                <div *ngIf="email.errors && email.errors.pattern">Email is invalid</div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <input type="password" #password="ngModel" name="password"
+                                                    class="form-control" placeholder="Password"
+                                                    [(ngModel)]="user.password" required>
+                                            </div>
+                                            <div class="alert alert-danger" role="alert"
+                                                *ngIf="password.touched && !password.valid">
+                                                <div *ngIf="password.errors.required">Password is required</div>
+                                            </div>
+                                            <button type="submit" [disabled]="formRegister.form.invalid"
+                                                class="btn btn-lg btn-primary btn-block">Register User</button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </form>
+        </tab>
+
+    </tabset>
+</div>

@@ -1,0 +1,33 @@
+{
+  "name": "country-tb",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "required": true
+    },
+    "CountryCode": {
+      "type": "string",
+      "required": true
+    },
+    "CountryName": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "contact-info": {
+      "type": "hasOne",
+      "model": "contactinfo_tb",
+      "foreignKey": "CountryID"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

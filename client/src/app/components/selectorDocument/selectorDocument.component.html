@@ -1,0 +1,52 @@
+<form #formDocument="ngForm" (ngSubmit)="onRegister(formDocument)">
+    <div class="form-group">
+
+        <div class="btn-group" dropdown>
+            <select [(ngModel)]="coutr" name="seelctorCountr" [(ngModel)]="tpdocument.NameTypedDocument"
+                ngDefaultControl id="dropdown-basic" class="browser-default custom-select"
+                (ngModelChange)="onChange($event)">
+                <!--id={{cr.id}} -->
+                <option disabled value="Select.."></option>
+                <option *ngFor="let cr of coutr" id={{cr.NameTypedDocument}} value={{cr.NameTypedDocument}}>
+                    {{cr.NameTypedDocument}}</option>
+
+
+            </select>
+
+        </div>
+
+
+        <div class="alert alert-danger" role="alert" *ngIf="isError">
+            {{msgError}}
+        </div>
+        <div class="form-group">
+            <input  type="text" #document="ngModel" name="document" class="form-control" placeholder="Document"
+                [(ngModel)]="tpdocument.Document" required maxlength="15">
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="document.touched && !document.valid">
+            <div *ngIf="document.errors.required">The Document is required</div>
+        </div>
+
+        <div class="form-group">
+            <input type="text" #placeExpedition="ngModel" name="placeExpedition" class="form-control"
+                placeholder="Place Of Expedition" [(ngModel)]="tpdocument.PlaceExpedition" required maxlength="15">
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="placeExpedition.touched && !placeExpedition.valid">
+            <div *ngIf="placeExpedition.errors.required">THe palce of Expedition of document is required</div>
+        </div>
+
+
+
+
+        <!--<div class="form-group">
+            <input type="text" #dateExpedition="ngModel" name="dateExpedition" class="form-control"
+                placeholder="Date Of Expedition" [(ngModel)]="tpdocument.DateExpedition" required maxlength="15">
+        </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="dateExpedition.touched && !dateExpedition.valid">
+            <div *ngIf="dateExpedition.errors.required">THe palce of Expedition of document is required</div>
+        </div>-->
+    </div>
+</form>

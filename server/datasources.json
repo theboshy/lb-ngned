@@ -1,0 +1,12 @@
+{
+  "db": {
+    "host": "cluster0-z7lex.mongodb.net",
+    "port": 0,
+    "url": "mongodb+srv://opd:opd10@cluster0-z7lex.mongodb.net/nedd?retryWrites=true&w=majority",
+    "database": "nedd",
+    "password": "opd10",
+    "name": "db",
+    "user": "opd",
+    "connector": "mongodb"
+  }
+}

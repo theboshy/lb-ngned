@@ -1,0 +1,56 @@
+{
+  "name": "app-user-tb",
+  "base": "User",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "required": true
+    },
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "LastName": {
+      "type": "string",
+      "required": true
+    },
+    "isMilitar": {
+      "type": "boolean",
+      "required": true
+    },
+    "TimeCreated": {
+      "type": "date"
+    },
+    "isTemporal": {
+      "type": "boolean",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "contact-info": {
+      "type": "hasOne",
+      "model": "contactinfo_tb",
+      "foreignKey": "UserID"
+    },
+    "user-document": {
+      "type": "hasOne",
+      "model": "user-document-tb",
+      "foreignKey": "UserID"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

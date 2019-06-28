@@ -1,0 +1,12 @@
+<form #formCountry="ngForm" (ngSubmit)="onRegister(formCountry)">
+
+<div class="btn-group" dropdown>
+    <select [(ngModel)]="coutr" name="seelctorCountr" [(ngModel)]="user.CountryCode" ngDefaultControl
+        id="dropdown-basic" class="browser-default custom-select" (ngModelChange)="onChange($event)">
+        <option disabled value="Select..">
+        <option *ngFor="let cr of coutr" id={{cr.CountryCode}} value={{cr.CountryCode}}>{{cr.CountryName}}</option>
+
+    </select>
+
+</div>
+</form>

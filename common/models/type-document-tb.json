@@ -1,0 +1,28 @@
+{
+  "name": "type-document-tb",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "NameTypedDocument": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "user-document": {
+      "type": "hasOne",
+      "model": "user-document-tb",
+      "foreignKey": "TypeDocumentID"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
