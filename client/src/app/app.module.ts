@@ -24,6 +24,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AlertsModule } from 'angular-alert-module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CanActivateViaAuthGuard } from 'src/app/guards/def.guard';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -40,11 +42,12 @@ import { ReactiveFormsModule } from '@angular/forms';
         UserListComponent,
         TruncateTextPipe
     ],
-    imports: [AlertsModule.forRoot(), ReactiveFormsModule, BrowserAnimationsModule, BsDatepickerModule.forRoot(), AccordionModule,
+    imports: [AlertsModule.forRoot(), ReactiveFormsModule, BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(), AccordionModule,
     TabsModule.forRoot(), BsDropdownModule.forRoot(), BrowserModule,
         AppRoutingModule, HttpClientModule, FormsModule, NgxSpinnerModule,
         NgxPaginationModule, BsDropdownModule.forRoot(), TabsModule.forRoot(), AccordionModule.forRoot()],
-    providers: [DataApiService, SelectorDocumentComponent],
+    providers: [DataApiService, SelectorDocumentComponent, CanActivateViaAuthGuard ,DatePipe],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

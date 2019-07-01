@@ -32,6 +32,16 @@ export class DataApiService {
         return this.htttp.get(url_api);
     }
 
+    getContacInfoByUserId(id) {
+        const url_api = `http://localhost:3000/api/app-user-tbs/${id}/contact-info`;
+        return this.htttp.get(url_api);
+    }
+
+    getDocumentInfoByUserId(id) {
+        const url_api = `http://localhost:3000/api/app-user-tbs/${id}/user-document`;
+        return this.htttp.get(url_api);
+    }
+
     saveContacInfo(
         UserID: string,
         CountryID: string,
@@ -107,7 +117,5 @@ export class DataApiService {
                 }));
 
     }
-
-    login(){}
 
 }

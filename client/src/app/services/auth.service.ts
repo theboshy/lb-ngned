@@ -64,7 +64,8 @@ export class AuthService {
     }
 
     loginuser(email: string, password: string): Observable<any> {
-        const url_api = "http://localhost:3000/api/Users/login?include=user";
+        const url_api = "http://localhost:3000/api/app-user-tbs/login";
+        const modal = {} as ResponseInterface;
         return this.htttp
             .post<UserInterface>(
                 url_api,
@@ -88,14 +89,30 @@ export class AuthService {
         return localStorage.getItem("accessToken");
     }
 
-    getCurrentUser(): UserInterface {
+    getCurrentUser(): string {
         let user_string = localStorage.getItem("currentUser");
         if (!isNullOrUndefined(user_string)) {
-            let user: UserInterface = JSON.parse(user_string);
-            return user;
+            return user_string;
         } else {
             return null;
         }
+    }
+
+    logoutUser() {
+        let accessToken = localStorage.getItem("accessToken");
+        const url_api = `http://localhost:3000/api/app-user-tbs/logout?access_token=${accessToken}`;
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("currentUser");
+        return this.htttp.post<UserInterface>(url_api, { headers: this.headers });
+    }
+
+    isLogged(): boolean {
+        if (!isNullOrUndefined(this.getCurrentUser())) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

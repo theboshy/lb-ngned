@@ -6,6 +6,7 @@ import { SelectorComponent } from 'src/app/components/selectorCountry/selector.c
 import { UserListComponent } from 'src/app/components/user/list/list.component';
 import { SelectorDocumentComponent } from 'src/app/components/selectorDocument/selectorDocument.component';
 import { Page404Component } from 'src/app/components/page404/page404.component';
+import { CanActivateViaAuthGuard } from 'src/app/guards/def.guard';
 
 
 //import { CanActivateViaAuthGuard } from './guards/def.guard';
@@ -15,8 +16,8 @@ const routes: Routes = [
     { path: 'user/register', component: RegisterComponent },
     { path: 'selector', component: SelectorComponent },
     { path: 'selectorDocument', component: SelectorDocumentComponent },
-    { path: 'userList', component: UserListComponent },
-    { path: 'userLogin', component: LoginUserComponent},
+    { path: 'user/userList', component: UserListComponent, canActivate: [CanActivateViaAuthGuard] },
+    { path: 'user/userLogin', component: LoginUserComponent },
     { path: '**', component: Page404Component }
 ];
 
