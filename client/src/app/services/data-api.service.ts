@@ -37,8 +37,18 @@ export class DataApiService {
         return this.htttp.get(url_api);
     }
 
+    getCountryNameById(id) {
+        const url_api = `http://localhost:3000/api/country-tbs/${id}`;
+        return this.htttp.get(url_api);
+    }
+
     getDocumentInfoByUserId(id) {
         const url_api = `http://localhost:3000/api/app-user-tbs/${id}/user-document`;
+        return this.htttp.get(url_api);
+    }
+
+    getDocumentNameByID(id) {
+        const url_api = `http://localhost:3000/api/type-document-tbs/${id}/`;
         return this.htttp.get(url_api);
     }
 

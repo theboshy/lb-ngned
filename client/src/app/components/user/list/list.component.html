@@ -1,45 +1,31 @@
-<table id="example" class="table table-striped table-bordered" style="width:100%">
+<table id="example" class="table table-striped table-bordered mt-4" style="width:100%">
     <thead>
         <tr>
             <th>Name</th>
             <th>Last Name</th>
             <th>Email</th>
-            <th>City</th>
-            <th>Address</th>
-            <th>Cell Phone</th>
-            <th>Document</th>
-            <th>PLace Of Expedition</th>
-            <th>Date Of Expedition</th>
+            <th class="separateCOuntry">Country</th>
+            <th class="separateCOuntry">City</th>
+            <th class="separateCOuntry">Address</th>
+            <th class="separateCOuntry">Cell Phone</th>
+            <th class="separateDoc" >Document Name</th>
+            <th class="separateDoc" >Document</th>
+            <th class="separateDoc" >PLace Of Expedition</th>
+            <th class="separateDoc" >Date Of Expedition</th>
         </tr>
     </thead>
-    <tbody [(ngModel)]="users" name="accordion">
+    <tbody [(ngModel)]="users">
         <tr *ngFor="let usr of users">
             <td>{{usr.Name}}</td>
             <td>{{usr.LastName}}</td>
             <td>{{usr.email}}</td>
-            <td>{{usr.City}}</td>
-            <td>{{usr.Address}}</td>
-            <td>{{usr.CellPhone}}</td>
-            <td>{{usr.Document}}</td>
-            <td>{{usr.PlaceExpedition}}</td>
-            <td>{{usr.DateExpedition}}</td>
+            <td class="separateCOuntry">{{usr.CountryName}}</td>
+            <td class="separateCOuntry">{{usr.City}}</td>
+            <td class="separateCOuntry">{{usr.Address}}</td>
+            <td class="separateCOuntry">{{usr.CellPhone}}</td>
+            <td class="separateDoc">{{usr.NameTypedDocument}}</td>
+            <td class="separateDoc">{{usr.Document}}</td>
+            <td class="separateDoc">{{usr.PlaceExpedition}}</td>
+            <td class="separateDoc">{{usr.DateExpedition}}</td>
         </tr>
 </table>
-
-
-
-
-<!--<form #formUserList="ngForm">
-    <accordion [(ngModel)]="users" name="accordion" ngDefaultControl>
-        <accordion-group *ngFor="let usr of users" heading={{usr.username}}>
-            <div class="btn-group">
-                <label class="btn btn-primary" ngDefaultControl btnCheckbox tabindex="0">
-                    {{usr.Name}}</label>
-                <label class="btn btn-primary" ngDefaultControl btnCheckbox tabindex="0">{{usr.LastName}}</label>
-                <label class="btn btn-primary" ngDefaultControl btnCheckbox tabindex="0">{{usr.email}}</label>
-            </div>
-
-        </accordion-group>
-
-    </accordion>
-</form>-->

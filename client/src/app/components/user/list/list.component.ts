@@ -5,7 +5,8 @@ import { Location, DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-user-list',
-    templateUrl: './list.component.html'
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.css']
 })
 export class UserListComponent implements OnInit {
     constructor(private dataApiService: DataApiService,
@@ -34,6 +35,11 @@ export class UserListComponent implements OnInit {
                 subscribe((data: {}) => {
                     var merge = Object.assign(val, data);
                     val = merge;
+                    this.dataApiService.getCountryNameById(merge.CountryID).
+                        subscribe((data: {}) => {
+                            var add = Object.assign(val, data);
+                            val = add;
+                        }, error => this.msgError = <any>error);
                 }, error => this.msgError = <any>error);
 
         }
@@ -46,6 +52,12 @@ export class UserListComponent implements OnInit {
                     var merge = Object.assign(val, data);
                     merge.DateExpedition = this.formatDate(merge.DateExpedition);
                     val = merge;
+                    this.dataApiService.getDocumentNameByID(merge.TypeDocumentID).
+                        subscribe((data: {}) => {
+                            var add = Object.assign(val, data);
+                            val = add;
+                        }, error => this.msgError = <any>error);
+
                 }, error => this.msgError = <any>error);
 
         }
