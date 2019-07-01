@@ -132,6 +132,7 @@ wanabe@wanabe-corp:~$ sudo npm install
 }
 ```
 
+
 <h2>Iniciar api (loopback)<h2>
 
 
@@ -140,6 +141,7 @@ wanabe@wanabe-corp:~$ sudo npm install
 
 ```console
 wanabe@wanabe-corp:~$ npm start 
+
 ```
 
 
