@@ -158,8 +158,8 @@ wanabe@wanabe-corp:~$ sudo ng serve
 
 
 
-EXplorar la pagina principal en [localhost:4200/](localhost:4200/)
+EXplorar la pagina principal en [localhost:4200/](http://localhost:4200/)
 
-EXplorar colleccion de Api en [localhost:3000/](localhost:3000/explorer)
+EXplorar colleccion de Api en [localhost:3000/](http://localhost:3000/explorer)
 
 
