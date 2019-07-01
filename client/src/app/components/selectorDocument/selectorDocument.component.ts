@@ -2,7 +2,7 @@ import { Component, OnInit, Injectable, ViewChild, EventEmitter, Output } from '
 import { DataApiService } from 'src/app/services/data-api.service';
 import { TypeDocumentInterface } from 'src/app/models/type-interface';
 import { NgForm } from '@angular/forms';
-import { ConsoleReporter } from 'jasmine';
+
 
 @Component({
     selector: 'app-selector-document',
@@ -18,7 +18,7 @@ export class SelectorDocumentComponent implements OnInit {
     }
     model;
     public tpdocument: TypeDocumentInterface = {
-        NameTypedDocument : '',
+        TypeDocumentID : '',
         Document: '',
         PlaceExpedition: '',
         DateExpedition: ''
@@ -42,15 +42,15 @@ export class SelectorDocumentComponent implements OnInit {
 
     onRegisterFormChange(ngform: NgForm): void {
         ngform.form.valueChanges.subscribe(x => {
-            this.formChangeEvent.emit(ngform.valid && 0 !== this.tpdocument.NameTypedDocument.length)
-            if(ngform.valid && 0 !== this.tpdocument.NameTypedDocument.length){
+            this.formChangeEvent.emit(ngform.valid && 0 !== this.tpdocument.TypeDocumentID.length)
+            if (ngform.valid && 0 !== this.tpdocument.TypeDocumentID.length) {
                 this.formChangeDataEvent.emit(this.tpdocument);
             }
         })
     }
 
     onChange(newValue) {
-        console.log(newValue);
+        this.tpdocument.TypeDocumentID = newValue;
     }
 
 }

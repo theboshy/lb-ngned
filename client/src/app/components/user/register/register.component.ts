@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { AlertsService } from 'angular-alert-module';
+import * as uuid from 'uuid';
+import { ResponseInterface } from 'src/app/models/response-interface';
+import { DataApiService } from 'src/app/services/data-api.service';
 
 
 @Component({
@@ -20,14 +23,15 @@ export class RegisterComponent implements OnInit {
     constructor(private authService: AuthService,
         private location: Location,
         private alerts: AlertsService,
-        private selectDocument: SelectorDocumentComponent) {
+        private selectDocument: SelectorDocumentComponent,
+        private dataApiService: DataApiService) {
     }
 
     public isDocumentFormValid = false;
     public isCountryFormValid = false;
 
     private tpdocument: TypeDocumentInterface = {
-        NameTypedDocument : '',
+        TypeDocumentID: '',
         Document: '',
         PlaceExpedition: '',
         DateExpedition: ''
@@ -58,25 +62,57 @@ export class RegisterComponent implements OnInit {
     public isError = false;
     public msgError = '';
 
+    private persistUser = false;
+    private persistConatc = false;
+    private persistDocument = false;
+
+    errorObj = {} as ResponseInterface;
+
     ngOnInit() {
     }
 
     onRegister(form: NgForm): void {
-
         if (form.valid) {
-            console.log(this.tpdocument);
-            console.log(this.contactInfo);
-            console.log(this.user);
 
-            this.authService.registerUser(this.user.LastName, this.user.Name, this.user.isMilitar, this.user.isTemporal, this.user.username, this.user.email, this.user.password).
-                subscribe((data: {}) => {
-                    //
-                });
+            let userId = new Date().getUTCMilliseconds().toString();
+            console.log(this.user)
+
+            this.authService.registerUser(userId,
+                this.user.LastName, this.user.Name, this.user.isMilitar,
+                this.user.isTemporal, this.user.username,
+                this.user.email, this.user.password).subscribe(
+                    (err: ResponseInterface) => {
+                        if (err.IsError) {
+                            this.onIsError(err);
+                        }
+                    },
+                    succ => { this.onSucc(); this.persistUser=true},
+                );
+
+
+            this.dataApiService.saveContacInfo(userId, this.contactInfo.CountryID,
+                this.contactInfo.Address, this.contactInfo.City, this.contactInfo.Phone, this.contactInfo.CellPhone
+                , this.contactInfo.EmergencyName, this.contactInfo.EmergencyPhone).subscribe(
+                    (err: ResponseInterface) => {
+
+                       this.persistConatc = true;
+                    },
+                    succ => { },
+                );
+
+
+
+            this.dataApiService.saveDocumentInfo(userId, this.tpdocument.TypeDocumentID,
+                this.tpdocument.Document, this.tpdocument.PlaceExpedition, this.tpdocument.DateExpedition).subscribe(
+                    (err: ResponseInterface) => {
+                        this.persistDocument = true;
+                    },
+                    succ => { },
+                );
 
         } else {
-            this.onIsError("");
-        }
 
+        }
     }
 
     /**"" */
@@ -104,11 +140,20 @@ export class RegisterComponent implements OnInit {
         this.alerts.setMessage('Saved successfully!', 'success');
     }
 
+
     onIsError(error): void {
-        this.alerts.setMessage(error, 'error');
-        this.isError = true;
-        setTimeout(() => {
-            this.isError = false;
-        }, 4000);
+        this.alerts.setMessage(error.Message, 'error');
+        let ind = 0;
+        console.log(error.Messages)
+        for (var property in error.Messages) {
+            ind++;
+            if (error.Messages.hasOwnProperty(property)) {
+                if (error.Messages[property] instanceof Array) {
+                    this.alerts.setMessage(property + " : " + error.Messages[property], 'error');
+                }
+            }
+        }
+
+
     }
 }

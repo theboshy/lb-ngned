@@ -27,8 +27,7 @@
       "required": true
     },
     "Phone": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "CellPhone": {
       "type": "string",

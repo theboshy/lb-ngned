@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginUserComponent } from 'src/app/components/user/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { RegisterComponent } from './components/user/register/register.component';
@@ -22,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AlertsModule } from 'angular-alert-module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -34,10 +36,11 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         Page404Component,
         SelectorComponent,
         SelectorDocumentComponent,
+        LoginUserComponent,
         UserListComponent,
         TruncateTextPipe
     ],
-    imports: [AlertsModule.forRoot(), BrowserAnimationsModule, BsDatepickerModule.forRoot(), AccordionModule,
+    imports: [AlertsModule.forRoot(), ReactiveFormsModule, BrowserAnimationsModule, BsDatepickerModule.forRoot(), AccordionModule,
     TabsModule.forRoot(), BsDropdownModule.forRoot(), BrowserModule,
         AppRoutingModule, HttpClientModule, FormsModule, NgxSpinnerModule,
         NgxPaginationModule, BsDropdownModule.forRoot(), TabsModule.forRoot(), AccordionModule.forRoot()],

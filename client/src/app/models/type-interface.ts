@@ -1,5 +1,6 @@
 export interface TypeDocumentInterface {
-    NameTypedDocument? : string;
+    UserID?: string;
+    TypeDocumentID?: string;
     Document?: string;
     PlaceExpedition?: string;
     DateExpedition?: string;

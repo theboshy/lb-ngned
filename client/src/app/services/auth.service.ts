@@ -1,14 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import * as uuid from 'uuid';
-
+import { map, catchError } from 'rxjs/operators';
 import { UserInterface } from '../models/user-interface';
+import { Observable, of } from 'rxjs';
+import { ResponseInterface } from 'src/app/models/response-interface';
+import { isNullOrUndefined } from 'util';
+
+//import { ConsoleReporter } from 'jasmine';
+
+
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
     constructor(private htttp: HttpClient) { }
+    handleError(err) {
+        console.log(err)
+    }
     headers: HttpHeaders = new HttpHeaders({
         'Content-Type': 'application/json',
     });
@@ -16,6 +24,7 @@ export class AuthService {
     /*this.user.lastName,this.user.name,this.user.isMilitar,this.user.isTemporal
     /,this.user.username,this.user.email,this.user.password*/
     registerUser(
+        id: string,
         LastName: string,
         Name: string,
         isMilitar: string,
@@ -25,9 +34,10 @@ export class AuthService {
         password: string
     ) {
         const url_api = 'http://localhost:3000/api/app-user-tbs';
-        return this.htttp.post<UserInterface>(url_api,
+        const modal = {} as ResponseInterface;
+        return this.htttp.post<any>(url_api,
             {
-                id: uuid.v4(),
+                id: id,
                 LastName: LastName,
                 Name: Name,
                 isMilitar: isMilitar,
@@ -36,7 +46,56 @@ export class AuthService {
                 email: email,
                 password: password,
                 timeCreated: new Date()
-            },{ headers: this.headers })
+            }, { headers: this.headers })
+            .pipe(map((res: Response) => console.log("en json : " + res.json())),
+                catchError((error: any) => {
+
+                    modal.Status = error.status;
+                    modal.IsError = true;
+                    modal.Messages = error.error.error.details.messages;
+                    if (error.status == 422) {
+                        modal.Message = "Data duplication error";
+                    } else if (error.status == 500) {
+                        modal.Message = "Internal server error ";
+                    }
+
+                    return of(modal);
+                }));
+    }
+
+    loginuser(email: string, password: string): Observable<any> {
+        const url_api = "http://localhost:3000/api/Users/login?include=user";
+        return this.htttp
+            .post<UserInterface>(
+                url_api,
+                { email, password },
+                { headers: this.headers }
+            )
             .pipe(map(data => data));
     }
+
+
+    setUser(user: UserInterface): void {
+        let user_string = JSON.stringify(user);
+        localStorage.setItem("currentUser", user_string);
+    }
+
+    setToken(token): void {
+        localStorage.setItem("accessToken", token);
+    }
+
+    getToken() {
+        return localStorage.getItem("accessToken");
+    }
+
+    getCurrentUser(): UserInterface {
+        let user_string = localStorage.getItem("currentUser");
+        if (!isNullOrUndefined(user_string)) {
+            let user: UserInterface = JSON.parse(user_string);
+            return user;
+        } else {
+            return null;
+        }
+    }
+
 }

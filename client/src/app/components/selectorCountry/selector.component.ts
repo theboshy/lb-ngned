@@ -18,6 +18,7 @@ export class SelectorComponent implements OnInit {
     }
 
     public contactInfo: ContacInfoInterface = {
+        CountryID: '',
         Address: '',
         City: '',
         Phone: '',
@@ -36,10 +37,9 @@ export class SelectorComponent implements OnInit {
 
     onRegisterFormChange(ngform: NgForm): void {
         ngform.form.valueChanges.subscribe(x => {
-            //console.log("chungo ")
-            this.formCountryChangeEvent.emit(ngform.valid);
-            if (ngform.valid) {
-                this.formCountryChangeDataEvent.emit(this.contactInfo)
+            this.formCountryChangeEvent.emit(ngform.valid && 0 !== this.contactInfo.CountryID.length);
+            if (ngform.valid && 0 !== this.contactInfo.CountryID.length) {
+                this.formCountryChangeDataEvent.emit(this.contactInfo);
             }
         });
     }
@@ -49,13 +49,14 @@ export class SelectorComponent implements OnInit {
         this.dataApiService.getCtrs().
             subscribe((data: any[]) => {
                 this.coutr = data;
+                this.coutr.unshift("");
             }, error => this.msgError = <any>error);
     }
 
     onRegister() { }
 
     onChange(newValue) {
-        console.log(newValue);
+        this.contactInfo.CountryID = newValue;
     }
 
 }

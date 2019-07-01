@@ -8,10 +8,10 @@
 
             <div class="form-group" dropdown>
                 <select [(ngModel)]="documents[0]" #namedocument="ngModel" name="namedocument" required
-                    [(ngModel)]="tpdocument.NameTypedDocument" id="dropdown-basic-docu"
+                    [(ngModel)]="tpdocument.TypeDocumentID" id="dropdown-basic-docu"
                     class="browser-default custom-select" (ngModelChange)="onChange($event)">
                     <!--revelar el id de un registro de la base datos??-->
-                    <option *ngFor="let dc of documents" id={{dc.id}} value={{dc.NameTypedDocument}}>{{dc.NameTypedDocument}}</option>
+                    <option *ngFor="let dc of documents" id={{dc.id}} value={{dc.id}} >{{dc.NameTypedDocument}}</option>
                 </select>
             </div>
 
