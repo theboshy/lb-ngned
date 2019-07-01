@@ -1,12 +1,16 @@
-<form #formCountry="ngForm" (ngSubmit)="onRegister(formCountry)">
+<div class="col-xs-12 col-sm-6 mt-4 ml-0">
+    <form #formCountry="ngForm" (ngSubmit)="onRegister(formCountry)">
+    <div class="form-group">
 
-<div class="btn-group" dropdown>
-    <select [(ngModel)]="coutr" name="seelctorCountr" [(ngModel)]="user.CountryCode" ngDefaultControl
-        id="dropdown-basic" class="browser-default custom-select" (ngModelChange)="onChange($event)">
-        <option disabled value="Select..">
-        <option *ngFor="let cr of coutr" id={{cr.CountryCode}} value={{cr.CountryCode}}>{{cr.CountryName}}</option>
+        <div class="form-group" dropdown>
+            <select [(ngModel)]="coutr" name="seelctorCountr" [(ngModel)]="user.CountryCode" ngDefaultControl
+            id="dropdown-basic" class="browser-default custom-select" (ngModelChange)="onChange($event)">
+            <option disabled value="Select..">
+            <option *ngFor="let cr of coutr" id={{cr.CountryCode}} value={{cr.CountryCode}}>{{cr.CountryName}}</option>
 
-    </select>
-
+            </select>
+        </div>
+       
+    </div>
+    </form>
 </div>
-</form>

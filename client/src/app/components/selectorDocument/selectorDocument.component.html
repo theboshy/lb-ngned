@@ -1,26 +1,25 @@
+<div class="col-xs-12 col-sm-6 mt-4 ml-0">
 <form #formDocument="ngForm" (ngSubmit)="onRegister(formDocument)">
     <div class="form-group">
 
-        <div class="btn-group" dropdown>
+        <div class="form-group" dropdown>
+
             <select [(ngModel)]="coutr" name="seelctorCountr" [(ngModel)]="tpdocument.NameTypedDocument"
-                ngDefaultControl id="dropdown-basic" class="browser-default custom-select"
+                ngDefaultControl id="dropdown-basic-docu" class="browser-default custom-select"
                 (ngModelChange)="onChange($event)">
-                <!--id={{cr.id}} -->
-                <option disabled value="Select.."></option>
+                <option value="" disabled selected>Select your option</option>
                 <option *ngFor="let cr of coutr" id={{cr.NameTypedDocument}} value={{cr.NameTypedDocument}}>
                     {{cr.NameTypedDocument}}</option>
-
 
             </select>
 
         </div>
 
-
         <div class="alert alert-danger" role="alert" *ngIf="isError">
             {{msgError}}
         </div>
         <div class="form-group">
-            <input  type="text" #document="ngModel" name="document" class="form-control" placeholder="Document"
+            <input type="number" #document="ngModel" name="document" class="form-control" placeholder="Document"
                 [(ngModel)]="tpdocument.Document" required maxlength="15">
         </div>
 
@@ -34,19 +33,21 @@
         </div>
 
         <div class="alert alert-danger" role="alert" *ngIf="placeExpedition.touched && !placeExpedition.valid">
-            <div *ngIf="placeExpedition.errors.required">THe palce of Expedition of document is required</div>
+            <div *ngIf="placeExpedition.errors.required">The place of Expedition of document is required</div>
         </div>
 
 
-
-
-        <!--<div class="form-group">
-            <input type="text" #dateExpedition="ngModel" name="dateExpedition" class="form-control"
-                placeholder="Date Of Expedition" [(ngModel)]="tpdocument.DateExpedition" required maxlength="15">
+        <div class="row">
+            <div class="col-xs-12 col-12 col-md-4 form-group">
+                <input type="text" #dateExpedition="ngModel" name="dateExpedition"
+                    [(ngModel)]="tpdocument.DateExpedition" required placeholder="Expedition Date" class="form-control"
+                    bsDatepicker>
+            </div>
         </div>
 
         <div class="alert alert-danger" role="alert" *ngIf="dateExpedition.touched && !dateExpedition.valid">
-            <div *ngIf="dateExpedition.errors.required">THe palce of Expedition of document is required</div>
-        </div>-->
+            <div *ngIf="dateExpedition.errors.required">The Date of Expedition of document is required</div>
+        </div>
     </div>
 </form>
+</div>

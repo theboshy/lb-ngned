@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
 
 
 
@@ -10,8 +8,6 @@ import { map } from 'rxjs/operators';
 })
 export class DataApiService {
     constructor(private http: HttpClient) { }
-    books: Observable<any>;
-    book: Observable<any>;
 
     getCtrs() {
         const url_api = `http://localhost:3000/api/country-tbs`;

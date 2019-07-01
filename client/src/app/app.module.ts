@@ -21,6 +21,8 @@ import { SelectorDocumentComponent } from 'src/app/components/selectorDocument/s
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { AlertsModule } from 'angular-alert-module';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 
 @NgModule({
@@ -35,7 +37,7 @@ import { AlertsModule } from 'angular-alert-module';
         UserListComponent,
         TruncateTextPipe
     ],
-    imports: [AlertsModule.forRoot(), BrowserAnimationsModule, AccordionModule,
+    imports: [BsDatepickerModule.forRoot(), AlertsModule.forRoot(), BrowserAnimationsModule, AccordionModule,
         TabsModule.forRoot(), BsDropdownModule.forRoot(), BrowserModule,
         AppRoutingModule, HttpClientModule, FormsModule, NgxSpinnerModule,
         NgxPaginationModule, BsDropdownModule.forRoot(), TabsModule.forRoot(), AccordionModule.forRoot()],
