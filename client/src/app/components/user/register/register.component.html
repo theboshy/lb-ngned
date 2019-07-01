@@ -1,11 +1,13 @@
 <div>
     <tabset>
         <!--<tap [disabled]="true"-->
-        <tab heading="ID Information" id="tab1"  >
-            <app-selector-document (formChangeDataEvent)="onFormDocumentDataToPersit($event)" (formChangeEvent)="onDocumentFormChange($event)"></app-selector-document>
+        <tab heading="ID Information" id="tab1">
+            <app-selector-document (formChangeDataEvent)="onFormDocumentDataToPersit($event)"
+                (formChangeEvent)="onDocumentFormChange($event)"></app-selector-document>
         </tab>
-        <tab heading="Location Information"  [disabled]="!isDocumentFormValid">
-            <app-selector (formCountryChangeDataEvent)="onFormCountryDataToPersit($event)" (formCountryChangeEvent)="onFormCountryChange($event)"></app-selector>
+        <tab heading="Location Information" [disabled]="!isDocumentFormValid">
+            <app-selector (formCountryChangeDataEvent)="onFormCountryDataToPersit($event)"
+                (formCountryChangeEvent)="onFormCountryChange($event)"></app-selector>
         </tab>
 
 
@@ -15,78 +17,85 @@
                     <div class="container">
                         <div class="row">
 
-                               <div class="col-xs-12 col-sm-6 mt-0 ml-0">
+                            <div class="col-xs-12 col-sm-6 mt-0 ml-0">
 
 
                                 <div class="card_register">
 
 
-                                        <div class="card-body text-center">
+                                    <div class="card-body text-center">
 
 
-                                            <div class="alert alert-danger" role="alert" *ngIf="isError">
-                                                {{msgError}}
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" #name="ngModel" name="name" class="form-control"
-                                                    placeholder="Name" [(ngModel)]="user.Name" required maxlength="15">
-                                            </div>
-
-                                            <div class="alert alert-danger" role="alert"
-                                                *ngIf="name.touched && !name.valid">
-                                                <div *ngIf="name.errors.required">Name is required</div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <input type="text" #lastName="ngModel" name="lastName"
-                                                    class="form-control" placeholder="Last Name"
-                                                    [(ngModel)]="user.LastName" required maxlength="15">
-                                            </div>
-
-                                            <div class="alert alert-danger" role="alert"
-                                                *ngIf="lastName.touched && !lastName.valid">
-                                                <div *ngIf="lastName.errors.required">Last Name is required</div>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <input type="text" #username="ngModel" name="username"
-                                                    class="form-control" placeholder="Username"
-                                                    [(ngModel)]="user.username" required>
-                                            </div>
-
-                                            <div class="alert alert-danger" role="alert"
-                                                *ngIf="username.touched && !username.valid">
-                                                <div *ngIf="username.errors.required">User Name is required</div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <input type="email" #email="ngModel" name="email" class="form-control"
-                                                    placeholder="Email" [(ngModel)]="user.email" email="true" required
-                                                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                                            </div>
-
-                                            <div class="alert alert-danger" role="alert"
-                                                *ngIf="email.touched && !email.valid">
-                                                <div *ngIf="email.errors.required">Email is required</div>
-                                                <div *ngIf="email.errors && email.errors.pattern">Email is invalid</div>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <input type="password" #password="ngModel" name="password"
-                                                    class="form-control" placeholder="Password"
-                                                    [(ngModel)]="user.password" required>
-                                            </div>
-                                            <div class="alert alert-danger" role="alert"
-                                                *ngIf="password.touched && !password.valid">
-                                                <div *ngIf="password.errors.required">Password is required</div>
-                                            </div>
-                                            <button type="submit" [disabled]="formRegister.form.invalid"
-                                                class="btn btn-lg btn-primary btn-block">Register User</button>
-
-
+                                        <div class="alert alert-danger" role="alert" *ngIf="isError">
+                                            {{msgError}}
                                         </div>
+                                        <div class="form-group">
+                                            <input type="text" #name="ngModel" name="name" class="form-control"
+                                                placeholder="Name" [(ngModel)]="user.Name" required maxlength="15">
+                                        </div>
+
+                                        <div class="alert alert-danger" role="alert"
+                                            *ngIf="name.touched && !name.valid">
+                                            <div *ngIf="name.errors.required">Name is required</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text" #lastName="ngModel" name="lastName" class="form-control"
+                                                placeholder="Last Name" [(ngModel)]="user.LastName" required
+                                                maxlength="15">
+                                        </div>
+
+                                        <div class="alert alert-danger" role="alert"
+                                            *ngIf="lastName.touched && !lastName.valid">
+                                            <div *ngIf="lastName.errors.required">Last Name is required</div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <input type="text" #username="ngModel" name="username" class="form-control"
+                                                placeholder="Username" [(ngModel)]="user.username" required>
+                                        </div>
+
+                                        <div class="alert alert-danger" role="alert"
+                                            *ngIf="username.touched && !username.valid">
+                                            <div *ngIf="username.errors.required">User Name is required</div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="email" #email="ngModel" name="email" class="form-control"
+                                                placeholder="Email" [(ngModel)]="user.email" email="true" required
+                                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                        </div>
+
+                                        <div class="alert alert-danger" role="alert"
+                                            *ngIf="email.touched && !email.valid">
+                                            <div *ngIf="email.errors.required">Email is required</div>
+                                            <div *ngIf="email.errors && email.errors.pattern">Email is invalid</div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <input type="password" #password="ngModel" name="password"
+                                                class="form-control" placeholder="Password" [(ngModel)]="user.password"
+                                                required>
+                                        </div>
+                                        <div class="alert alert-danger" role="alert"
+                                            *ngIf="password.touched && !password.valid">
+                                            <div *ngIf="password.errors.required">Password is required</div>
+                                        </div>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" #isMilitar="ngModel" name="isMilitar"
+                                                class="custom-control-input" id="defaultUnchecked" [(ngModel)]="user.isMilitar">
+                                            <label class="custom-control-label" for="defaultUnchecked">
+                                                are you military ? </label>
+                                        </div>
+
+                                        <button type="submit" [disabled]="formRegister.form.invalid"
+                                            class="btn btn-lg btn-primary btn-block mt-2">Register User</button>
+
+
+                                    </div>
 
                                 </div>
                             </div>

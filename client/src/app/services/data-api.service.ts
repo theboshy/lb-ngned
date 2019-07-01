@@ -32,9 +32,19 @@ export class DataApiService {
         return this.htttp.get(url_api);
     }
 
+
+    getDocumentInfo() {
+        const url_api = `http://localhost:3000/api/user-document-tbs`;
+        return this.htttp.get(url_api);
+    }
+    getContacInfo() {
+        const url_api = `http://localhost:3000/api/contactinfo_tbs`;
+        return this.htttp.get(url_api);
+    }
+
     getContacInfoByUserId(id) {
         const url_api = `http://localhost:3000/api/app-user-tbs/${id}/contact-info`;
-        return this.htttp.get(url_api);
+        return this.htttp.get(url_api).pipe(map(data => data));
     }
 
     getCountryNameById(id) {

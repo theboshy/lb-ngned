@@ -15,51 +15,95 @@ export class UserListComponent implements OnInit {
     }
     checkModel: any = { left: false, middle: true, right: false };
     public users = [];
-    public usersContacInfo = [];
+    public usersInfo = [];
+    public documentInfo = [];
+    private ctrs = [];
     public isError = false;
     public msgError = '';
 
     ngOnInit() {
         this.dataApiService.getUsers().
             subscribe((data: any[]) => {
-                //console.log(data);
                 this.users = data;
                 this.getContacInfoDataByUSer();
                 this.getDocumentInfoDataByUSer();
+                this.getCountryNameDataByUser();
+                this.getDocumentNameDataByUser();
+            }, error => this.msgError = <any>error);
+
+
+    }
+
+    getDocumentNameDataByUser() {
+        this.dataApiService.getDocuments().
+            subscribe((data: any[]) => {
+                this.ctrs = data;
+                this.ctrs.forEach(element => {
+                    this.users.forEach(val => {
+                        if (element.id == val.TypeDocumentID) {
+
+                            var add = Object.assign(val, element);
+                            val = add;
+                        }
+                    });
+                });
+
+            }, error => this.msgError = <any>error);
+    }
+
+    getCountryNameDataByUser() {
+        this.dataApiService.getCtrs().
+            subscribe((data: any[]) => {
+                this.ctrs = data;
+                this.ctrs.forEach(element => {
+                    this.users.forEach(val => {
+                        if (element.COuntryCode == val.CountryCode) {
+                            var add = Object.assign(val, element);
+                            val = add;
+                        }
+                    })
+                });
             }, error => this.msgError = <any>error);
     }
 
     getContacInfoDataByUSer() {
-        for (var val of this.users) {
-            this.dataApiService.getContacInfoByUserId(val.id).
-                subscribe((data: {}) => {
-                    var merge = Object.assign(val, data);
-                    val = merge;
-                    this.dataApiService.getCountryNameById(merge.CountryID).
-                        subscribe((data: {}) => {
-                            var add = Object.assign(val, data);
+        this.dataApiService.getContacInfo().
+            subscribe((data: any[]) => {
+                this.usersInfo = data;
+                this.usersInfo.forEach(element => {
+                    this.users.forEach(val => {
+                        if (element.UserID == val.id) {
+                            if (val.isMilitar) {
+                                val.isMilitar = "YES";
+                            } else {
+                                val.isMilitar = "NO";
+                            }
+                            var add = Object.assign(val, element);
                             val = add;
-                        }, error => this.msgError = <any>error);
-                }, error => this.msgError = <any>error);
+                        }
+                    })
+                });
 
-        }
+            }, error => this.msgError = <any>error);
     }
 
     getDocumentInfoDataByUSer() {
         for (var val of this.users) {
-            this.dataApiService.getDocumentInfoByUserId(val.id).
-                subscribe((data: {}) => {
-                    var merge = Object.assign(val, data);
-                    merge.DateExpedition = this.formatDate(merge.DateExpedition);
-                    val = merge;
-                    this.dataApiService.getDocumentNameByID(merge.TypeDocumentID).
-                        subscribe((data: {}) => {
-                            var add = Object.assign(val, data);
-                            val = add;
-                        }, error => this.msgError = <any>error);
+            this.dataApiService.getDocumentInfo().
+                subscribe((data: any[]) => {
+                    this.documentInfo = data;
+                    this.documentInfo.forEach(element => {
+                        this.users.forEach(val => {
+                            if (element.UserID == val.UserID) {
+                                var add = Object.assign(val, element);
+                                val = add;
+                                val.DateExpedition = this.formatDate(val.DateExpedition);
+                            }
+                        })
+                    });
+
 
                 }, error => this.msgError = <any>error);
-
         }
     }
 
