@@ -1,16 +1,73 @@
 <div class="col-xs-12 col-sm-6 mt-4 ml-0">
     <form #formCountry="ngForm" (ngSubmit)="onRegister(formCountry)">
-    <div class="form-group">
+        <div class="form-group">
 
-        <div class="form-group" dropdown>
-            <select [(ngModel)]="coutr" name="seelctorCountr" [(ngModel)]="user.CountryCode" ngDefaultControl
-            id="dropdown-basic" class="browser-default custom-select" (ngModelChange)="onChange($event)">
-            <option disabled value="Select..">
-            <option *ngFor="let cr of coutr" id={{cr.CountryCode}} value={{cr.CountryCode}}>{{cr.CountryName}}</option>
+            <div class="form-group" dropdown>
+                <select [(ngModel)]="coutr[0]" name="selectorCountry" [(ngModel)]="contactInfo.CountryCode" ngDefaultControl
+                    id="dropdown-basic-count" class="browser-default custom-select" (ngModelChange)="onChange($event)">
+                    <option *ngFor="let cr of coutr" id={{cr.CountryCode}} value={{cr.CountryCode}}>{{cr.CountryName}}
+                    </option>
 
-            </select>
+                </select>
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="isError">
+                {{msgError}}
+            </div>
+
+            <div class="form-group">
+                <input type="text" #city="ngModel" name="city" class="form-control" placeholder="City"
+                    [(ngModel)]="contactInfo.City" required maxlength="13">
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="city.touched && !city.valid">
+                <div *ngIf="city.errors.required">The user city is required</div>
+            </div>
+
+            <div class="form-group">
+                <input type="text" #address="ngModel" name="address" class="form-control" placeholder="Address"
+                    [(ngModel)]="contactInfo.Address" required maxlength="20">
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="address.touched && !address.valid">
+                <div *ngIf="address.errors.required">The user address is required</div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="number" #phone="ngModel" name="phone" class="form-control" placeholder="Phone"
+                    [(ngModel)]="contactInfo.Phone" required maxlength="20">
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="phone.touched && !phone.valid">
+                <div *ngIf="phone.errors.required">The user phone is required</div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="number" #cellPhone="ngModel" name="cellPhone" class="form-control" placeholder="Cell Phone"
+                    [(ngModel)]="contactInfo.CellPhone" required maxlength="20">
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="cellPhone.touched && !cellPhone.valid">
+                <div *ngIf="cellPhone.errors.required">The user cell phone is required</div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" #emergencyName="ngModel" name="emergencyName" class="form-control"
+                    placeholder="Emergency Name" [(ngModel)]="contactInfo.EmergencyName" maxlength="20">
+            </div>
+
+            <div class="form-group">
+                <input type="text" #emergencyPhone="ngModel" name="emergencyPhone" class="form-control"
+                    placeholder="Emergency Phone" [(ngModel)]="contactInfo.EmergencyPhone" maxlength="20">
+            </div>
+
+
+
+
+
         </div>
-       
-    </div>
     </form>
 </div>

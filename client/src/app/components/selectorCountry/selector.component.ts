@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { DataApiService } from 'src/app/services/data-api.service';
-import { CountryInterface } from 'src/app/models/country-interface';
+import { ContacInfoInterface } from 'src/app/models/contactinfo-interface';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-selector',
@@ -8,13 +9,21 @@ import { CountryInterface } from 'src/app/models/country-interface';
     styleUrls: ['./selector.component.css']
 })
 export class SelectorComponent implements OnInit {
+
+    @ViewChild('formCountry') ngForm: NgForm;
+
+
     constructor(private dataApiService: DataApiService) {
 
     }
 
-    private country: CountryInterface = {
-        CountryName: '',
-        CountryCode: '',
+    public contactInfo: ContacInfoInterface = {
+        Address: '',
+        City: '',
+        Phone: '',
+        CellPhone: '',
+        EmergencyName: '',
+        EmergencyPhone: '',
     };
 
     public coutr = [];
@@ -22,14 +31,28 @@ export class SelectorComponent implements OnInit {
     public isError = false;
     public msgError = '';
 
+    @Output() formCountryChangeEvent = new EventEmitter<boolean>();
+    @Output() formCountryChangeDataEvent = new EventEmitter<ContacInfoInterface>();
+
+    onRegisterFormChange(ngform: NgForm): void {
+        ngform.form.valueChanges.subscribe(x => {
+            //console.log("chungo ")
+            this.formCountryChangeEvent.emit(ngform.valid);
+            if (ngform.valid) {
+                this.formCountryChangeDataEvent.emit(this.contactInfo)
+            }
+        });
+    }
+
     ngOnInit() {
+        this.onRegisterFormChange(this.ngForm);
         this.dataApiService.getCtrs().
-            subscribe((data: any[])  => {
+            subscribe((data: any[]) => {
                 this.coutr = data;
             }, error => this.msgError = <any>error);
     }
 
-    onRegister(){}
+    onRegister() { }
 
     onChange(newValue) {
         console.log(newValue);

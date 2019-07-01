@@ -1,9 +1,12 @@
-import { Component, OnInit, ɵConsole } from '@angular/core';
+import { Component, OnInit, ɵConsole, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { SelectorDocumentComponent } from 'src/app/components/selectorDocument/selectorDocument.component';
 import { UserInterface } from 'src/app/models/user-interface';
+import { TypeDocumentInterface } from 'src/app/models/type-interface';
+import { ContacInfoInterface } from 'src/app/models/contactinfo-interface';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { NgForm } from '@angular/forms/src/directives/ng_form';
+import { NgForm } from '@angular/forms';
 import { AlertsService } from 'angular-alert-module';
 
 
@@ -13,11 +16,33 @@ import { AlertsService } from 'angular-alert-module';
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
-
-    constructor(private authService: AuthService, private location: Location, private alerts: AlertsService) {
-
+    @ViewChild(SelectorDocumentComponent) selectDocumentView: SelectorDocumentComponent;
+    constructor(private authService: AuthService,
+        private location: Location,
+        private alerts: AlertsService,
+        private selectDocument: SelectorDocumentComponent) {
     }
+
+    public isDocumentFormValid = false;
+    public isCountryFormValid = false;
+
+    private tpdocument: TypeDocumentInterface = {
+        NameTypedDocument : '',
+        Document: '',
+        PlaceExpedition: '',
+        DateExpedition: ''
+    };
+
+    public contactInfo: ContacInfoInterface = {
+        Address: '',
+        City: '',
+        Phone: '',
+        CellPhone: '',
+        EmergencyName: '',
+        EmergencyPhone: '',
+    };
+
+
     public user: UserInterface = {
         id: '',
         LastName: '',
@@ -33,15 +58,19 @@ export class RegisterComponent implements OnInit {
     public isError = false;
     public msgError = '';
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
     onRegister(form: NgForm): void {
+
         if (form.valid) {
-            console.log(this.user)
+            console.log(this.tpdocument);
+            console.log(this.contactInfo);
+            console.log(this.user);
 
             this.authService.registerUser(this.user.LastName, this.user.Name, this.user.isMilitar, this.user.isTemporal, this.user.username, this.user.email, this.user.password).
                 subscribe((data: {}) => {
-                   //maldito sync
+                    //
                 });
 
         } else {
@@ -49,6 +78,28 @@ export class RegisterComponent implements OnInit {
         }
 
     }
+
+    /**"" */
+    onDocumentFormChange($event) {
+        this.isDocumentFormValid = $event;
+    }
+
+    onFormDocumentDataToPersit($event) {
+        this.tpdocument = $event;
+    }
+    /**"" */
+
+    /**"" */
+    onFormCountryChange($event) {
+        this.isCountryFormValid = $event;
+    }
+
+    onFormCountryDataToPersit($event) {
+        this.contactInfo = $event
+    }
+    /**"" */
+
+
     onSucc() {
         this.alerts.setMessage('Saved successfully!', 'success');
     }

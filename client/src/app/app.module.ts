@@ -37,11 +37,11 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         UserListComponent,
         TruncateTextPipe
     ],
-    imports: [BsDatepickerModule.forRoot(), AlertsModule.forRoot(), BrowserAnimationsModule, AccordionModule,
-        TabsModule.forRoot(), BsDropdownModule.forRoot(), BrowserModule,
+    imports: [AlertsModule.forRoot(), BrowserAnimationsModule, BsDatepickerModule.forRoot(), AccordionModule,
+    TabsModule.forRoot(), BsDropdownModule.forRoot(), BrowserModule,
         AppRoutingModule, HttpClientModule, FormsModule, NgxSpinnerModule,
         NgxPaginationModule, BsDropdownModule.forRoot(), TabsModule.forRoot(), AccordionModule.forRoot()],
-    providers: [DataApiService],
+    providers: [DataApiService, SelectorDocumentComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

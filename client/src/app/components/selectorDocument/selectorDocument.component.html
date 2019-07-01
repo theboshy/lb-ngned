@@ -1,53 +1,61 @@
 <div class="col-xs-12 col-sm-6 mt-4 ml-0">
-<form #formDocument="ngForm" (ngSubmit)="onRegister(formDocument)">
-    <div class="form-group">
-
-        <div class="form-group" dropdown>
-
-            <select [(ngModel)]="coutr" name="seelctorCountr" [(ngModel)]="tpdocument.NameTypedDocument"
-                ngDefaultControl id="dropdown-basic-docu" class="browser-default custom-select"
-                (ngModelChange)="onChange($event)">
-                <option value="" disabled selected>Select your option</option>
-                <option *ngFor="let cr of coutr" id={{cr.NameTypedDocument}} value={{cr.NameTypedDocument}}>
-                    {{cr.NameTypedDocument}}</option>
-
-            </select>
-
-        </div>
-
-        <div class="alert alert-danger" role="alert" *ngIf="isError">
-            {{msgError}}
-        </div>
+    <form #formDocument="ngForm" (ngChange)="onRegisterFormChange(formDocument)">
         <div class="form-group">
-            <input type="number" #document="ngModel" name="document" class="form-control" placeholder="Document"
-                [(ngModel)]="tpdocument.Document" required maxlength="15">
-        </div>
 
-        <div class="alert alert-danger" role="alert" *ngIf="document.touched && !document.valid">
-            <div *ngIf="document.errors.required">The Document is required</div>
-        </div>
-
-        <div class="form-group">
-            <input type="text" #placeExpedition="ngModel" name="placeExpedition" class="form-control"
-                placeholder="Place Of Expedition" [(ngModel)]="tpdocument.PlaceExpedition" required maxlength="15">
-        </div>
-
-        <div class="alert alert-danger" role="alert" *ngIf="placeExpedition.touched && !placeExpedition.valid">
-            <div *ngIf="placeExpedition.errors.required">The place of Expedition of document is required</div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-xs-12 col-12 col-md-4 form-group">
-                <input type="text" #dateExpedition="ngModel" name="dateExpedition"
-                    [(ngModel)]="tpdocument.DateExpedition" required placeholder="Expedition Date" class="form-control"
-                    bsDatepicker>
+            <div class="alert alert-danger" role="alert" *ngIf="isError">
+                {{msgError}}
             </div>
-        </div>
 
-        <div class="alert alert-danger" role="alert" *ngIf="dateExpedition.touched && !dateExpedition.valid">
-            <div *ngIf="dateExpedition.errors.required">The Date of Expedition of document is required</div>
+            <div class="form-group" dropdown>
+                <select [(ngModel)]="documents[0]" #namedocument="ngModel" name="namedocument" required
+                    [(ngModel)]="tpdocument.NameTypedDocument" id="dropdown-basic-docu"
+                    class="browser-default custom-select" (ngModelChange)="onChange($event)">
+                    <!--revelar el id de un registro de la base datos??-->
+                    <option *ngFor="let dc of documents" id={{dc.id}} value={{dc.NameTypedDocument}}>{{dc.NameTypedDocument}}</option>
+                </select>
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="namedocument.touched && !namedocument.valid">
+                <div *ngIf="namedocument.errors.required">The Type of Document is required</div>
+            </div>
+
+
+            <div class="form-group">
+                <input type="number" #document="ngModel" name="document" class="form-control" placeholder="Document"
+                    [(ngModel)]="tpdocument.Document" required maxlength="15">
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="document.touched && !document.valid">
+                <div *ngIf="document.errors.required">The Document is required</div>
+            </div>
+
+            <div class="form-group">
+                <input type="text" #placeExpedition="ngModel" name="placeExpedition" class="form-control"
+                    placeholder="Place Of Expedition" [(ngModel)]="tpdocument.PlaceExpedition" required maxlength="15">
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="placeExpedition.touched && !placeExpedition.valid">
+                <div *ngIf="placeExpedition.errors.required">The place of Expedition of document is required</div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-xs-12 col-12 col-md-4 form-group">
+                    <input type="text" #dateExpedition="ngModel" name="dateExpedition"
+                        [(ngModel)]="tpdocument.DateExpedition" required placeholder="Expedition Date"
+                        class="form-control" bsDatepicker>
+                </div>
+            </div>
+
+            <div class="alert alert-danger" role="alert" *ngIf="dateExpedition.touched && !dateExpedition.valid">
+                <div *ngIf="dateExpedition.errors.required">The Date of Expedition of document is required</div>
+            </div>
+
+            <!--            <pre>{{ formDocument.value | json }}</pre>
+
+            <button type="button" [disabled]="formDocument.form.invalid"
+                class="btn btn-lg btn-primary btn-block">Next</button>
+                -->
         </div>
-    </div>
-</form>
+    </form>
 </div>

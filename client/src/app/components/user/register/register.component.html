@@ -1,24 +1,25 @@
 <div>
     <tabset>
-        <tab heading="ID Information" id="tab1">
-            <app-selector-document></app-selector-document>
+        <!--<tap [disabled]="true"-->
+        <tab heading="ID Information" id="tab1"  >
+            <app-selector-document (formChangeDataEvent)="onFormDocumentDataToPersit($event)" (formChangeEvent)="onDocumentFormChange($event)"></app-selector-document>
         </tab>
-        <tab heading="Location Info">
-            <app-selector></app-selector>
+        <tab heading="Location Information"  [disabled]="!isDocumentFormValid">
+            <app-selector (formCountryChangeDataEvent)="onFormCountryDataToPersit($event)" (formCountryChangeEvent)="onFormCountryChange($event)"></app-selector>
         </tab>
 
 
-        <tab heading="Personal Info">
+        <tab heading="Personal Information" [disabled]="!isCountryFormValid">
             <form #formRegister="ngForm" (ngSubmit)="onRegister(formRegister)">
-                <section id="register" class="mb-5 mt-5">
+                <section id="register" class="mb-5 mt-2 ml-0">
                     <div class="container">
                         <div class="row">
 
-                               <div class="col-xs-12 col-sm-6 mt-4 ml-0">
+                               <div class="col-xs-12 col-sm-6 mt-0 ml-0">
 
 
                                 <div class="card_register">
-                                    <div class="card">
+
 
                                         <div class="card-body text-center">
 
@@ -51,7 +52,7 @@
                                             <div class="form-group">
                                                 <input type="text" #username="ngModel" name="username"
                                                     class="form-control" placeholder="Username"
-                                                    [(ngModel)]="user.username" email="true" required>
+                                                    [(ngModel)]="user.username" required>
                                             </div>
 
                                             <div class="alert alert-danger" role="alert"
@@ -86,7 +87,7 @@
 
 
                                         </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
