@@ -66,7 +66,7 @@ wanabe@wanabe-corp:~$ sudo npm install
     "url": ""
   },
   "license": "UNLICENSED",
-  "description": "apiBooks"
+  "description": ""
 }
 ```
 
