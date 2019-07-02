@@ -34,7 +34,7 @@ wanabe@wanabe-corp:~$ sudo npm install
 
 ```json
 {
-  "name": "apiBooks",
+  "name": "lbng",
   "version": "1.0.0",
   "main": "server/server.js",
   "engines": {
