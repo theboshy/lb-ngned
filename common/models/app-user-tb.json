@@ -33,24 +33,17 @@
   },
   "validations": [],
   "relations": {
-    "contact-info": {
+    "contactInfo": {
       "type": "hasOne",
       "model": "contactinfo_tb",
       "foreignKey": "UserID"
     },
-    "user-document": {
+    "userDocument": {
       "type": "hasOne",
       "model": "user-document-tb",
       "foreignKey": "UserID"
     }
   },
-  "acls": [
-    {
-      "accessType": "READ",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW"
-    }
-  ],
+  "acls": [ ],
   "methods": {}
 }

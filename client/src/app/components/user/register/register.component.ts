@@ -11,6 +11,8 @@ import { AlertsService } from 'angular-alert-module';
 import * as uuid from 'uuid';
 import { ResponseInterface } from 'src/app/models/response-interface';
 import { DataApiService } from 'src/app/services/data-api.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -22,6 +24,7 @@ export class RegisterComponent implements OnInit {
     @ViewChild(SelectorDocumentComponent) selectDocumentView: SelectorDocumentComponent;
     constructor(private authService: AuthService,
         private location: Location,
+        private router: Router,
         private alerts: AlertsService,
         private selectDocument: SelectorDocumentComponent,
         private dataApiService: DataApiService) {
@@ -29,6 +32,7 @@ export class RegisterComponent implements OnInit {
 
     public isDocumentFormValid = false;
     public isCountryFormValid = false;
+
 
     private tpdocument: TypeDocumentInterface = {
         TypeDocumentID: '',
@@ -75,39 +79,16 @@ export class RegisterComponent implements OnInit {
         if (form.valid) {
 
             let userId = new Date().getUTCMilliseconds().toString();
-            console.log(this.user)
 
-            this.authService.registerUser(userId,
-                this.user.LastName, this.user.Name, this.user.isMilitar,
-                this.user.isTemporal, this.user.username,
-                this.user.email, this.user.password).subscribe(
-                    (err: ResponseInterface) => {
-                        if (err.IsError) {
-                            this.onIsError(err);
-                        }
-                    },
-                    succ => { this.onSucc(); this.persistUser=true},
-                );
-
-
-            this.dataApiService.saveContacInfo(userId, this.contactInfo.CountryID,
-                this.contactInfo.Address, this.contactInfo.City, this.contactInfo.Phone, this.contactInfo.CellPhone
-                , this.contactInfo.EmergencyName, this.contactInfo.EmergencyPhone).subscribe(
-                    (err: ResponseInterface) => {
-
-                       this.persistConatc = true;
-                    },
-                    succ => { },
-                );
-
-
-
-            this.dataApiService.saveDocumentInfo(userId, this.tpdocument.TypeDocumentID,
-                this.tpdocument.Document, this.tpdocument.PlaceExpedition, this.tpdocument.DateExpedition).subscribe(
-                    (err: ResponseInterface) => {
-                        this.persistDocument = true;
-                    },
-                    succ => { },
+            this.authService.registerUser(userId, this.user, this.tpdocument, this.contactInfo).subscribe(                                                                                                                                                          
+                
+                (errr: any) => {
+                    this.onIsError(errr);
+                },
+                (succs: any) => {
+                    console.log("2"+succs)
+                }
+                
                 );
 
         } else {
@@ -142,18 +123,30 @@ export class RegisterComponent implements OnInit {
 
 
     onIsError(error): void {
-        this.alerts.setMessage(error.Message, 'error');
-        let ind = 0;
-        console.log(error.Messages)
-        for (var property in error.Messages) {
-            ind++;
-            if (error.Messages.hasOwnProperty(property)) {
-                if (error.Messages[property] instanceof Array) {
-                    this.alerts.setMessage(property + " : " + error.Messages[property], 'error');
+        if (error typeof 'undefined') {
+            this.onSucc();
+            setTimeout(() => {
+                //this.router.navigate(['/user/register?refresh=1']);
+                window.location.reload();
+            },
+            1000);
+            
+        }
+        if (error.error.error.driver) {
+            this.alerts.setMessage("document is taken", 'error');
+        } else {
+            let ind = 0;
+
+            for (var property in error.error.error.details.messages) {
+                ind++;
+                if (error.error.error.details.messages.hasOwnProperty(property)) {
+                    if (error.error.error.details.messages[property] instanceof Array) {
+                        this.alerts.setMessage(property + " : " + error.error.error.details.messages[property], 'error');
+                    }
                 }
             }
         }
-
+        //this.alerts.setMessage(error.Message, 'error');
 
     }
 }

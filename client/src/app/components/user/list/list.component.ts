@@ -57,7 +57,7 @@ export class UserListComponent implements OnInit {
                 this.ctrs = data;
                 this.ctrs.forEach(element => {
                     this.users.forEach(val => {
-                        if (element.COuntryCode == val.CountryCode) {
+                        if (element.id == val.CountryID) {
                             var add = Object.assign(val, element);
                             val = add;
                         }

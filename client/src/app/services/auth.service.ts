@@ -5,6 +5,9 @@ import { UserInterface } from '../models/user-interface';
 import { Observable, of } from 'rxjs';
 import { ResponseInterface } from 'src/app/models/response-interface';
 import { isNullOrUndefined } from 'util';
+import { TypeDocumentInterface } from 'src/app/models/type-interface';
+import { ContacInfoInterface } from 'src/app/models/contactinfo-interface';
+import { UserRegister } from 'src/app/models/user-register-interface';
 
 //import { ConsoleReporter } from 'jasmine';
 
@@ -21,9 +24,48 @@ export class AuthService {
         'Content-Type': 'application/json',
     });
 
+
+
+    registerUser(
+        id : string,
+        User: UserInterface,
+        Document: TypeDocumentInterface,
+        Contact: ContacInfoInterface
+    ) {
+
+        User.id = id
+        User.timeCreated = new Date().toDateString()
+        Document.UserID = id
+        Contact.UserID = id
+        const url_api = 'http://localhost:3000/api/app-user-tbs/registerUser';
+        const modal = {} as ResponseInterface;
+        return this.htttp.post<any>(url_api,
+            {
+                User: User,
+                Document: Document,
+                Contact: Contact
+
+            }, { headers: this.headers })
+            .pipe(
+                map(result => {
+                    if (!result) {
+                       
+                    } else {
+                        
+                    }
+                }),
+                catchError((err, caught) => {
+                    var asd = [err]
+                    return asd;
+                })
+            );
+    }
+
+
+
     /*this.user.lastName,this.user.name,this.user.isMilitar,this.user.isTemporal
     /,this.user.username,this.user.email,this.user.password*/
-    registerUser(
+    /*registerUser(
         id: string,
         LastName: string,
         Name: string,
@@ -61,7 +103,7 @@ export class AuthService {
 
                     return of(modal);
                 }));
-    }
+    }*/
 
     loginuser(email: string, password: string): Observable<any> {
         const url_api = "http://localhost:3000/api/app-user-tbs/login";

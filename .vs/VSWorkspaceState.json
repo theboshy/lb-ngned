@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\e2e",
+    "\\client\\e2e\\src",
+    "\\client\\src",
+    "\\client\\src\\app",
+    "\\client\\src\\app\\components",
+    "\\client\\src\\app\\components\\user",
+    "\\client\\src\\app\\components\\user\\register",
+    "\\client\\src\\assets",
+    "\\client\\src\\environments"
+  ],
+  "SelectedNode": "\\client\\src\\app\\components\\user\\register\\register.component.ts",
+  "PreviewInSolutionExplorer": false
+}
